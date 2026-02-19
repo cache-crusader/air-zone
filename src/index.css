@@ -1,0 +1,50 @@
+/* index.css — global reset */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: "Roboto", system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #1f2933;
+  background-color: #f5f7fa;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/*
+  Targeted button reset — only remove the visual chrome browsers add.
+  Do NOT use "all: unset" — it destroys display, color inheritance,
+  and every other property our component CSS needs to override.
+*/
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: inherit;
+  line-height: inherit;
+}
+
+button:focus {
+  outline: none;
+}

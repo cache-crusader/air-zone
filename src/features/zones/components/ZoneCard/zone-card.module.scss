@@ -1,0 +1,164 @@
+@keyframes zoneCardSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.zoneButton {
+  position: relative;
+  width: 100%;
+  min-height: 130px;
+  border-radius: 10px;
+  background: var(--zone-bg, #ffffff);
+  box-shadow: var(
+    --zone-shadow,
+    0 1px 3px 0 rgba(0, 0, 0, 0.22),
+    0 1px 2px 0 rgba(0, 0, 0, 0.34)
+  );
+  padding: 17px;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+
+  &:focus-visible {
+    outline: 3px solid #40c3f7;
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  @media (prefers-contrast: high) {
+    border: 2px solid currentColor;
+  }
+}
+
+.modeIconBackground {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  pointer-events: none;
+  color: #ffffff;
+  transition: opacity 0.35s ease;
+}
+
+.modeIcon {
+  width: 100px;
+  height: 100px;
+  animation: zoneCardSpin 4s linear infinite;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 13px;
+  z-index: 1;
+}
+
+.temperature {
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  font-size: 33px;
+  line-height: 1;
+  // Colour comes from CSS custom property
+  color: var(--zone-temp-color, #7b8794);
+  transition: color 0.35s ease;
+}
+
+.powerButton {
+  // WCAG 2.5.5: min touch target 44×44px; spec says 55×55px active area
+  width: 55px;
+  height: 55px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 4px;
+  margin-right: -4px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #40c3f7;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-contrast: high) {
+    border: 1px solid currentColor !important;
+  }
+}
+
+.powerIcon {
+  display: block;
+  width: 22px;
+  height: 24px;
+  color: var(--zone-power-color, #cbd2d9);
+  transition: color 0.35s ease;
+  fill: currentColor;
+}
+
+.info {
+  position: relative;
+  z-index: 1;
+  text-align: left;
+}
+
+.zoneName {
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--zone-name-color, #1f2933);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.35s ease;
+}
+
+.status {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--zone-status-color, #9aa5b1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.35s ease;
+}
+
+// ─── Screen-reader only ───────────────────────────────────────────────────────
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

@@ -1,0 +1,447 @@
+/* ============================================================
+   zone-detail-page.module.scss
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+// ─── Keyframes ───────────────────────────────────────────────────────────────
+
+@keyframes detailSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinnerRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ─── Page shell ──────────────────────────────────────────────────────────────
+
+.page {
+  font-family: "Roboto", sans-serif;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+  padding: 30px 15px;
+  box-sizing: border-box;
+  max-width: 680px;
+  margin: 0 auto;
+
+  @media (min-width: 640px) {
+    padding: 30px;
+  }
+}
+
+// ─── Back button ─────────────────────────────────────────────────────────────
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #0b69a3;
+  padding: 4px 0;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+  &:focus-visible {
+    outline: 2px solid #0b69a3;
+    outline-offset: 2px;
+  }
+}
+
+// ─── Hero card ───────────────────────────────────────────────────────────────
+
+.hero {
+  position: relative;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  // Background and shadow driven by CSS custom properties from TSX
+  background-color: var(--hero-bg-color, #ffffff);
+  background-image: var(--hero-bg-image, none);
+  box-shadow: var(--hero-shadow, 0 8px 32px 0 rgba(0, 0, 0, 0.1));
+  transition:
+    background-color 0.4s ease,
+    box-shadow 0.4s ease;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.heroOff {
+  .heroTemp {
+    color: #7b8794;
+  }
+  .heroTempUnit {
+    color: #7b8794;
+  }
+  .heroName {
+    color: #1f2933;
+  }
+  .statusBadge {
+    background: #f0f4f8;
+    color: #7b8794;
+  }
+}
+
+.heroOn {
+  .heroTemp {
+    color: #ffffff;
+  }
+  .heroTempUnit {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .heroName {
+    color: #ffffff;
+  }
+}
+
+// ─── Hero: decorative bg icon ─────────────────────────────────────────────────
+
+.heroBgIcon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  pointer-events: none;
+  color: #ffffff;
+  opacity: 0.07;
+  line-height: 0;
+}
+
+.heroBgIconSvg {
+  width: 160px;
+  height: 160px;
+  animation: detailSpin 8s linear infinite;
+}
+
+// ─── Hero: top row ───────────────────────────────────────────────────────────
+
+.heroTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  // Default (ON states): white pill
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+// ─── Hero: power button ───────────────────────────────────────────────────────
+
+.powerBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  // OFF state: grey ring
+  background: #f0f4f8;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.08);
+  }
+  &:active {
+    transform: scale(0.94);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #40c3f7;
+    outline-offset: 3px;
+  }
+}
+
+.powerBtnOn {
+  // ON state: translucent white ring on the gradient background
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.32);
+  }
+}
+
+.powerIcon {
+  display: block;
+  width: 22px;
+  height: 24px;
+  // OFF: grey; ON: white
+  color: #cbd2d9;
+  transition: color 0.3s ease;
+
+  .powerBtnOn & {
+    color: #ffffff;
+  }
+}
+
+// ─── Hero: temperature ────────────────────────────────────────────────────────
+
+.heroTemp {
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 1;
+  letter-spacing: -2px;
+  // Color set by .heroOff / .heroOn
+  transition: color 0.4s ease;
+}
+
+.heroTempUnit {
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: 0;
+  transition: color 0.4s ease;
+}
+
+// ─── Hero: zone name ──────────────────────────────────────────────────────────
+
+.heroName {
+  font-weight: 500;
+  font-size: 20px;
+  margin-top: 8px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.4s ease;
+}
+
+// ─── Set-point card ───────────────────────────────────────────────────────────
+
+.setPointCard {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.setPointLabel {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #616e7c;
+}
+
+.setPointRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.setPointBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid #cbd2d9;
+  background: transparent;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 400;
+  color: #1f2933;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: #f0f4f8;
+    border-color: #9aa5b1;
+  }
+
+  &:active:not(:disabled) {
+    background: #e4e7eb;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #0b69a3;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+}
+
+.setPointValue {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: #1f2933;
+  min-width: 60px;
+  text-align: center;
+  line-height: 1;
+}
+
+.setPointUnit {
+  font-size: 18px;
+  font-weight: 500;
+  color: #9aa5b1;
+}
+
+// ─── Stats grid ───────────────────────────────────────────────────────────────
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.statCard {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statCardAccent {
+  background: #fff8f0;
+  box-shadow:
+    0 1px 4px 0 rgba(0, 0, 0, 0.07),
+    inset 0 0 0 1.5px #f6c89a;
+}
+
+.statLabel {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9aa5b1;
+}
+
+.statValue {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: #1f2933;
+  line-height: 1.1;
+}
+
+.statSub {
+  font-family: "Roboto", sans-serif;
+  font-size: 11px;
+  color: #9aa5b1;
+}
+
+// ─── Loading state ────────────────────────────────────────────────────────────
+
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 0;
+  font-size: 14px;
+  color: #9aa5b1;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid #e4e7eb;
+  border-top-color: #40c3f7;
+  animation: spinnerRotate 0.75s linear infinite;
+}
+
+// ─── Not found state ──────────────────────────────────────────────────────────
+
+.notFound {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 40px 32px;
+  text-align: center;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
+}
+
+.notFoundTitle {
+  font-weight: 500;
+  font-size: 18px;
+  color: #1f2933;
+  margin: 0 0 8px 0;
+}
+
+.notFoundSub {
+  font-size: 14px;
+  color: #9aa5b1;
+  margin: 0 0 24px 0;
+}
+
+.goBackBtn {
+  display: inline-flex;
+  align-items: center;
+  background: #1f2933;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #374151;
+  }
+  &:focus-visible {
+    outline: 2px solid #0b69a3;
+    outline-offset: 2px;
+  }
+}
